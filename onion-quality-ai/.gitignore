@@ -1,0 +1,82 @@
+# =============================================================================
+# .gitignore — Onion Quality AI
+# =============================================================================
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.whl
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Environment ---
+.env
+*.env.local
+
+# --- Database ---
+*.db
+*.sqlite3
+
+# --- Model weights ---
+models/**/*.pt
+models/**/*.pth
+models/**/*.onnx
+models/**/*.tflite
+models/**/*.h5
+models/**/*.bin
+
+# --- Data (keep structure, ignore large files) ---
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# --- Reports ---
+reports/*.pdf
+reports/*.html
+reports/*.json
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- Flutter ---
+frontend/.dart_tool/
+frontend/.packages
+frontend/build/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/pubspec.lock
+frontend/android/.gradle/
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+
+# --- Testing ---
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# --- Logs ---
+*.log
+logs/
