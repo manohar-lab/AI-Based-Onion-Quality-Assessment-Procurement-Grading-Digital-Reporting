@@ -42,10 +42,10 @@ models/**/*.h5
 models/**/*.bin
 
 # --- Data (keep structure, ignore large files) ---
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
+**/data/raw/*
+**/data/processed/*
+!**/data/raw/.gitkeep
+!**/data/processed/.gitkeep
 
 # --- Reports ---
 reports/*.pdf

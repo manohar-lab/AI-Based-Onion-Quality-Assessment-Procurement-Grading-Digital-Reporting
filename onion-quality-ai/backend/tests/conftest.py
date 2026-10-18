@@ -5,9 +5,22 @@ import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
+from app.core.config import get_settings
 from app.core.database import Base, get_db
 from app.main import app as fastapi_app
 import app.models
+from app.services import image_service
+
+
+@pytest.fixture(autouse=True)
+def isolate_test_image_storage(tmp_path, monkeypatch):
+    """Isolate image upload storage to pytest's tmp_path to prevent git pollution."""
+    test_image_dir = tmp_path / "data" / "raw"
+    test_image_dir.mkdir(parents=True, exist_ok=True)
+    settings = get_settings()
+    monkeypatch.setattr(settings, "image_directory", str(test_image_dir))
+    monkeypatch.setattr(image_service, "settings", settings)
+    yield test_image_dir
 
 
 # In-memory SQLite async engine for lightning fast and isolated testing

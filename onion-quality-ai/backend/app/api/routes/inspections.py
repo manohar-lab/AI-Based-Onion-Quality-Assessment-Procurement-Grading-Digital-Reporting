@@ -9,6 +9,7 @@ from app.core.config import get_settings
 from app.core.database import get_db
 from app.schemas.inspection import (
     InspectionCreate,
+    InspectionUpdate,
     InspectionResponse,
     InspectionDetailResponse,
 )
@@ -70,6 +71,26 @@ async def get_inspection(
             detail=f"Inspection '{inspection_id}' not found",
         )
     return inspection
+
+
+@router.patch(
+    "/{inspection_id}",
+    response_model=InspectionResponse,
+    summary="Update an inspection session",
+)
+async def update_inspection(
+    inspection_id: str,
+    payload: InspectionUpdate,
+    db: AsyncSession = Depends(get_db),
+) -> InspectionResponse:
+    """Update status or grading profile of an existing inspection session."""
+    inspection = await InspectionService.get_inspection(db, inspection_id, load_relations=False)
+    if not inspection:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Inspection '{inspection_id}' not found",
+        )
+    return await InspectionService.update_inspection(db, inspection, payload)
 
 
 @router.post(
